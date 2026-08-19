@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Atendimento - Ordem de Serviço</title>
+
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/tabela.css">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+
+    <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+
+</head>
+
+<body>
+
+<div class="layout">
+
+    <!-- MENU LATERAL -->
+    <aside class="sidebar">
+        <div class="logo">
+            <i class="fa-solid fa-screwdriver-wrench"></i>
+            <h2>Sistema Gestão</h2>
+        </div>
+        <nav>
+            <ul>
+                <li>
+                    <a href="index.html" class="ativo" id="menuHome">
+                        <i class="fa-solid fa-house"></i> Home
+                    </a>
+                </li>
+                <li>
+                    <a href="atendimento.html">
+                        <i class="fa-solid fa-file-circle-plus"></i> Atendimento
+                    </a>
+                </li>
+                <li>
+                    <a href="consultar-os.html">
+                        <i class="fa-solid fa-magnifying-glass"></i> Consultar O.S
+                    </a>
+                </li>
+                <li>
+                    <a href="estoque.html">
+                        <i class="fa-solid fa-boxes-stacked"></i> Estoque
+                    </a>
+                </li>
+                <li>
+                    <a href="usuarios.html">
+                        <i class="fa-solid fa-users"></i> Usuários
+                    </a>
+                </li>
+
+                <!-- BOTÃO DE SAIR (Vermelho) -->
+                <li style="margin-top: 30px; border-top: 1px solid rgba(255,255,255,0.1); padding-top: 10px;">
+                    <a href="#" onclick="sairDoSistema()" style="color: #ff6b81; font-weight: 500;">
+                        <i class="fa-solid fa-right-from-bracket"></i> Sair do Sistema
+                    </a>
+                </li>
+            </ul>
+        </nav>
+    </aside>
+
+    <!-- CONTEÚDO -->
+
+    <main class="conteudo">
+
+        <header>
+
+            <h1>Nova Ordem de Serviço</h1>
+
+            <p>Cadastro de atendimento.</p>
+
+        </header>
+
+        <section class="card">
+
+            <form id="formOS">
+
+                <!-- PRIMEIRA LINHA -->
+
+                <div class="linha">
+
+                    <div class="grupo">
+
+                        <label>Número da O.S</label>
+
+                        <input
+                            type="text"
+                            id="numeroOS"
+                            readonly>
+
+                    </div>
+
+                    <div class="grupo">
+
+                        <label>Data</label>
+
+                        <input
+                            type="date"
+                            id="data">
+
+                    </div>
+
+                </div>
+
+                <!-- SEGUNDA LINHA -->
+
+                <div class="linha">
+
+                    <div class="grupo">
+
+                        <label>Status</label>
+
+                        <select id="status">
+
+                            <option>Aberta</option>
+                            <option>Em andamento</option>
+                            <option>Pendente</option>
+                            <option>Concluída</option>
+
+                        </select>
+
+                    </div>
+
+                    <div class="grupo">
+
+                        <label>Prioridade</label>
+
+                        <select id="prioridade">
+
+                            <option>Baixa</option>
+                            <option>Média</option>
+                            <option>Alta</option>
+                            <option>Urgente</option>
+
+                        </select>
+
+                    </div>
+
+                </div>
+
+                <!-- TERCEIRA LINHA -->
+
+                <div class="linha">
+
+                    <div class="grupo">
+
+                        <label>Solicitante</label>
+
+                        <input
+                            type="text"
+                            id="solicitante">
+
+                    </div>
+
+                    <div class="grupo">
+
+                        <label>Setor</label>
+
+                        <input
+                            type="text"
+                            id="setor">
+
+                    </div>
+
+                </div>
+
+                <!-- QUARTA LINHA -->
+
+                <div class="linha">
+
+                    <div class="grupo">
+
+                        <label>Equipamento</label>
+
+                        <input
+                            type="text"
+                            id="equipamento">
+
+                    </div>
+
+                    <div class="grupo">
+
+                        <label>Técnico Responsável</label>
+
+                        <input
+                            type="text"
+                            id="tecnico">
+
+                    </div>
+
+                </div>
+
+                <!-- PROBLEMA -->
+
+                <div class="grupo">
+
+                    <label>Problema Relatado</label>
+
+                    <textarea
+                        id="problema"
+                        rows="5"></textarea>
+
+                </div>
+
+                <!-- COMENTÁRIO -->
+
+                <div class="grupo">
+
+                    <label>Comentário Técnico</label>
+
+                    <textarea
+                        id="comentario"
+                        rows="5"></textarea>
+
+                </div>
+
+                <!-- BOTÕES -->
+
+                <div class="botoes">
+
+                    <button
+                        type="button"
+                        class="botao"
+                        id="btnSalvar">
+
+                        <i class="fa-solid fa-floppy-disk"></i>
+
+                        Salvar
+
+                    </button>
+
+                    <button
+                        type="reset"
+                        class="botao">
+
+                        <i class="fa-solid fa-eraser"></i>
+
+                        Limpar
+
+                    </button>
+
+                    <button
+                        type="button"
+                        class="botao"
+                        onclick="window.location='index.html'">
+
+                        <i class="fa-solid fa-arrow-left"></i>
+
+                        Voltar
+
+                    </button>
+
+                </div>
+
+            </form>
+
+        </section>
+
+    </main>
+
+</div>
+
+<script src="js/api.js"></script>
+
+<script src="js/atendimento.js"></script>
+
+</body>
+
+</html>

@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Controle de Estoque</title>
+
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/tabela.css">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+
+    <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+
+    <style>
+        /* Estilos do Modal */
+        .modal { display: none; position: fixed; z-index: 1000; left: 0; top: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,0.6); backdrop-filter: blur(3px); }
+        .modal-content { background-color: #fff; margin: 5% auto; padding: 25px; border-radius: 10px; width: 90%; max-width: 600px; box-shadow: 0 5px 20px rgba(0,0,0,0.2); font-family: 'Poppins', sans-serif;}
+        .close { color: #aaa; float: right; font-size: 28px; font-weight: bold; cursor: pointer; margin-top: -10px;}
+        .close:hover { color: #333; }
+    </style>
+
+</head>
+
+<body>
+
+<div class="layout">
+
+    <!-- MENU -->
+
+    <!-- MENU LATERAL -->
+    <aside class="sidebar">
+        <div class="logo">
+            <i class="fa-solid fa-screwdriver-wrench"></i>
+            <h2>Sistema Gestão</h2>
+        </div>
+        <nav>
+            <ul>
+                <li>
+                    <a href="index.html" class="ativo" id="menuHome">
+                        <i class="fa-solid fa-house"></i> Home
+                    </a>
+                </li>
+                <li>
+                    <a href="atendimento.html">
+                        <i class="fa-solid fa-file-circle-plus"></i> Atendimento
+                    </a>
+                </li>
+                <li>
+                    <a href="consultar-os.html">
+                        <i class="fa-solid fa-magnifying-glass"></i> Consultar O.S
+                    </a>
+                </li>
+                <li>
+                    <a href="estoque.html">
+                        <i class="fa-solid fa-boxes-stacked"></i> Estoque
+                    </a>
+                </li>
+                <li>
+                    <a href="usuarios.html">
+                        <i class="fa-solid fa-users"></i> Usuários
+                    </a>
+                </li>
+
+                <!-- BOTÃO DE SAIR (Vermelho) -->
+                <li style="margin-top: 30px; border-top: 1px solid rgba(255,255,255,0.1); padding-top: 10px;">
+                    <a href="#" onclick="sairDoSistema()" style="color: #ff6b81; font-weight: 500;">
+                        <i class="fa-solid fa-right-from-bracket"></i> Sair do Sistema
+                    </a>
+                </li>
+            </ul>
+        </nav>
+    </aside>
+
+    <!-- CONTEÚDO -->
+
+    <main class="conteudo">
+
+        <header>
+
+            <h1>Controle de Estoque</h1>
+
+            <p>Cadastro e gerenciamento dos materiais.</p>
+
+        </header>
+
+        <!-- FORMULÁRIO -->
+
+        <section class="card">
+
+            <form id="formEstoque">
+
+                <div class="linha">
+
+                    <div class="grupo">
+
+                        <label>Código</label>
+
+                        <input
+                            type="text"
+                            id="codigo"
+                            placeholder="Ex.: MAT001">
+
+                    </div>
+
+                    <div class="grupo">
+
+                        <label>Descrição</label>
+
+                        <input
+                            type="text"
+                            id="descricao">
+
+                    </div>
+
+                </div>
+
+                <div class="linha">
+
+                    <div class="grupo">
+
+                        <label>Categoria</label>
+
+                        <select id="categoria">
+
+                            <option>Elétrica</option>
+                            <option>Mecânica</option>
+                            <option>Ferramenta</option>
+                            <option>Informática</option>
+                            <option>Outros</option>
+
+                        </select>
+
+                    </div>
+
+                    <div class="grupo">
+
+                        <label>Quantidade</label>
+
+                        <input
+                            type="number"
+                            id="quantidade">
+
+                    </div>
+
+                </div>
+
+                <div class="linha">
+
+                    <div class="grupo">
+
+                        <label>Valor Unitário (R$)</label>
+
+                        <input
+                            type="number"
+                            step="0.01"
+                            id="valor">
+
+                    </div>
+
+                    <div class="grupo">
+
+                        <label>Fornecedor</label>
+
+                        <input
+                            type="text"
+                            id="fornecedor">
+
+                    </div>
+
+                </div>
+
+                <div class="grupo">
+
+                    <label>Observações</label>
+
+                    <textarea
+                        id="observacao"
+                        rows="4"></textarea>
+
+                </div>
+
+                <div class="botoes">
+
+                    <button
+                        type="button"
+                        class="botao"
+                        id="btnSalvarItem">
+
+                        <i class="fa-solid fa-floppy-disk"></i>
+
+                        Salvar
+
+                    </button>
+
+                    <button
+                        type="reset"
+                        class="botao">
+
+                        <i class="fa-solid fa-eraser"></i>
+
+                        Limpar
+
+                    </button>
+
+                    <button
+                        type="button"
+                        class="botao"
+                        onclick="window.location='index.html'">
+
+                        <i class="fa-solid fa-arrow-left"></i>
+
+                        Voltar
+
+                    </button>
+
+                </div>
+
+            </form>
+
+        </section>
+
+        <!-- PESQUISA -->
+
+        <section class="card" style="margin-top:30px;">
+
+            <h2>Itens Cadastrados</h2>
+
+            <div class="area-pesquisa">
+
+                <div class="grupo">
+
+                    <label>Pesquisar</label>
+
+                    <input
+                        type="text"
+                        id="pesquisaItem"
+                        placeholder="Código ou descrição">
+
+                </div>
+
+                <button
+                    class="botao"
+                    id="btnPesquisar">
+
+                    <i class="fa-solid fa-search"></i>
+
+                    Pesquisar
+
+                </button>
+
+            </div>
+
+            <div class="table-container">
+
+                <table>
+
+                    <thead>
+
+                        <tr>
+
+                            <th>Código</th>
+                            <th>Descrição</th>
+                            <th>Categoria</th>
+                            <th>Qtd</th>
+                            <th>Valor</th>
+                            <th>Fornecedor</th>
+                            <th>Ações</th>
+
+                        </tr>
+
+                    </thead>
+
+                    <tbody id="listaEstoque">
+
+                        
+
+                    </tbody>
+
+                </table>
+
+            </div>
+
+        </section>
+
+    </main>
+
+</div>
+
+<!-- MODAL DE EDIÇÃO DE ESTOQUE -->
+<div id="modalEstoque" class="modal">
+    <div class="modal-content">
+        <span class="close" onclick="fecharModal()">&times;</span>
+        <h2 style="margin-bottom: 15px; color: #2b78e4;">Editar Item: <span id="modalCodigoVisor"></span></h2>
+        
+        <form id="formEdicaoEstoque">
+            <!-- Guarda o código invisível para o sistema saber qual linha alterar -->
+            <input type="hidden" id="modalCodigo">
+            
+            <div class="linha">
+                <div class="grupo">
+                    <label>Descrição</label>
+                    <input type="text" id="modalDescricao">
+                </div>
+                <div class="grupo">
+                    <label>Categoria</label>
+                    <select id="modalCategoria">
+                        <option>Elétrica</option>
+                        <option>Mecânica</option>
+                        <option>Ferramenta</option>
+                        <option>Informática</option>
+                        <option>Outros</option>
+                    </select>
+                </div>
+            </div>
+            
+            <div class="linha">
+                <div class="grupo">
+                    <label>Quantidade</label>
+                    <input type="number" id="modalQuantidade">
+                </div>
+                <div class="grupo">
+                    <label>Valor Unitário (R$)</label>
+                    <input type="number" step="0.01" id="modalValor">
+                </div>
+            </div>
+
+            <div class="grupo">
+                <label>Fornecedor</label>
+                <input type="text" id="modalFornecedor">
+            </div>
+
+            <div class="grupo">
+                <label>Observações</label>
+                <textarea id="modalObservacao" rows="3"></textarea>
+            </div>
+
+            <div class="botoes" style="margin-top: 20px; justify-content: flex-start;">
+                <button type="button" class="botao" id="btnSalvarModal" onclick="salvarEdicaoEstoque()">
+                    <i class="fa-solid fa-floppy-disk"></i> Atualizar Item
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<script src="js/api.js"></script>
+<script src="js/estoque.js"></script>
+
+</body>
+
+</html>

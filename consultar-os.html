@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Consultar Ordem de Serviço</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/tabela.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+    
+    <style>
+        /* Estilos do Modal de Edição */
+        .modal { display: none; position: fixed; z-index: 1000; left: 0; top: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,0.6); backdrop-filter: blur(3px); }
+        .modal-content { background-color: #fff; margin: 5% auto; padding: 25px; border-radius: 10px; width: 90%; max-width: 600px; box-shadow: 0 5px 20px rgba(0,0,0,0.2); font-family: 'Poppins', sans-serif;}
+        .close { color: #aaa; float: right; font-size: 28px; font-weight: bold; cursor: pointer; margin-top: -10px;}
+        .close:hover { color: #333; }
+        .dados-leitura p { margin-bottom: 8px; font-size: 14px; color: #555; background: #f9f9f9; padding: 8px; border-radius: 5px; border-left: 3px solid #2b78e4;}
+        .dados-leitura strong { color: #333; }
+    </style>
+</head>
+<body>
+<div class="layout">
+
+    <!-- MENU LATERAL -->
+    <aside class="sidebar">
+        <div class="logo">
+            <i class="fa-solid fa-screwdriver-wrench"></i>
+            <h2>Sistema Gestão</h2>
+        </div>
+        <nav>
+            <ul>
+                <li><a href="index.html"><i class="fa-solid fa-house"></i> Home</a></li>
+                <li><a href="atendimento.html"><i class="fa-solid fa-file-circle-plus"></i> Atendimento</a></li>
+                <li><a href="consultar-os.html" class="ativo"><i class="fa-solid fa-magnifying-glass"></i> Consultar O.S</a></li>
+                <li><a href="estoque.html"><i class="fa-solid fa-boxes-stacked"></i> Estoque</a></li>
+                <li><a href="usuarios.html"><i class="fa-solid fa-users"></i> Usuários</a></li>
+                <li style="margin-top: 30px; border-top: 1px solid rgba(255,255,255,0.1); padding-top: 10px;">
+                    <a href="#" onclick="sairDoSistema()" style="color: #ff6b81; font-weight: 500;">
+                        <i class="fa-solid fa-right-from-bracket"></i> Sair do Sistema
+                    </a>
+                </li>
+            </ul>
+        </nav>
+    </aside>
+
+    <!-- CONTEÚDO -->
+    <main class="conteudo">
+        <header>
+            <h1>Consultar Ordens de Serviço</h1>
+            <p>Acompanhe e pesquise os atendimentos cadastrados.</p>
+        </header>
+
+        <section class="card" style="margin-top:30px;">
+            <div class="area-pesquisa">
+                <div class="grupo">
+                    <label>Pesquisar por Número da O.S</label>
+                    <input type="text" id="pesquisaOS" placeholder="Ex.: OS0001">
+                </div>
+                <button class="botao" id="btnPesquisarOS">
+                    <i class="fa-solid fa-search"></i> Pesquisar
+                </button>
+                <button class="botao" id="btnRecarregar" style="background-color: #6c757d; margin-left: 10px;">
+                    <i class="fa-solid fa-rotate"></i> Recarregar Todas
+                </button>
+            </div>
+
+            <div class="table-container">
+                <table class="tabelaDashboard">
+                    <thead>
+                        <tr>
+                            <th>O.S</th>
+                            <th>Data</th>
+                            <th>Solicitante</th>
+                            <th>Equipamento</th>
+                            <th>Status</th>
+                            <th>Ações</th>
+                        </tr>
+                    </thead>
+                    <tbody id="listaConsultaOS">
+                        <tr><td colspan="6" style="text-align: center; padding: 20px;">Carregando dados da planilha...</td></tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+    </main>
+</div>
+
+<!-- MODAL DE EDIÇÃO DA O.S -->
+<div id="modalOS" class="modal">
+    <div class="modal-content">
+        <span class="close" onclick="fecharModal()">&times;</span>
+        <h2 style="margin-bottom: 15px; color: #2b78e4;">Detalhes da <span id="modalNumeroOS"></span></h2>
+        
+        <div class="dados-leitura">
+            <p><strong>Solicitante:</strong> <span id="modalSolicitante"></span></p>
+            <p><strong>Setor:</strong> <span id="modalSetor"></span></p>
+            <p><strong>Equipamento:</strong> <span id="modalEquipamento"></span></p>
+            <p><strong>Problema Relatado:</strong> <span id="modalProblema"></span></p>
+        </div>
+
+        <form id="formEdicaoOS" style="margin-top: 15px;">
+            <input type="hidden" id="modalNumero">
+            
+            <div class="linha">
+                <div class="grupo">
+                    <label>Status</label>
+                    <select id="modalStatus">
+                        <option value="Aberta">Aberta</option>
+                        <option value="Em Andamento">Em Andamento</option>
+                        <option value="Concluída">Concluída</option>
+                    </select>
+                </div>
+                <div class="grupo">
+                    <label>Técnico Responsável</label>
+                    <input type="text" id="modalTecnico">
+                </div>
+            </div>
+            
+            <div class="grupo">
+                <label>Comentários / Resolução</label>
+                <textarea id="modalComentario" rows="3" placeholder="Descreva o que foi feito..."></textarea>
+            </div>
+
+            <div class="botoes" style="margin-top: 20px; justify-content: flex-start; gap: 10px;">
+                <button type="button" class="botao" id="btnSalvarModal" onclick="salvarEdicaoOS()">
+                    <i class="fa-solid fa-floppy-disk"></i> Atualizar O.S
+                </button>
+                <!-- Este botão só aparece se for Administrador -->
+                <button type="button" class="botao" id="btnExcluirOS" style="background-color: #dc3545; display: none;" onclick="excluirOSConfirmado()">
+                    <i class="fa-solid fa-trash"></i> Excluir O.S
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<script src="js/api.js"></script>
+<script src="js/consultar-os.js"></script>
+</body>
+</html>

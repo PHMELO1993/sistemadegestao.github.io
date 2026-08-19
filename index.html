@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sistema de Gestão</title>
+    
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/dashboard.css">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+</head>
+
+<body>
+
+<div class="layout">
+
+    <!-- MENU LATERAL -->
+    <aside class="sidebar">
+        <div class="logo">
+            <i class="fa-solid fa-screwdriver-wrench"></i>
+            <h2>Sistema Gestão</h2>
+        </div>
+        <nav>
+            <ul>
+                <li>
+                    <a href="index.html" class="ativo" id="menuHome">
+                        <i class="fa-solid fa-house"></i> Home
+                    </a>
+                </li>
+                <li>
+                    <a href="atendimento.html">
+                        <i class="fa-solid fa-file-circle-plus"></i> Atendimento
+                    </a>
+                </li>
+                <li>
+                    <a href="consultar-os.html">
+                        <i class="fa-solid fa-magnifying-glass"></i> Consultar O.S
+                    </a>
+                </li>
+                <li>
+                    <a href="estoque.html">
+                        <i class="fa-solid fa-boxes-stacked"></i> Estoque
+                    </a>
+                </li>
+                <li>
+                    <a href="usuarios.html">
+                        <i class="fa-solid fa-users"></i> Usuários
+                    </a>
+                </li>
+
+                <!-- BOTÃO DE SAIR (Vermelho) -->
+                <li style="margin-top: 30px; border-top: 1px solid rgba(255,255,255,0.1); padding-top: 10px;">
+                    <a href="#" onclick="sairDoSistema()" style="color: #ff6b81; font-weight: 500;">
+                        <i class="fa-solid fa-right-from-bracket"></i> Sair do Sistema
+                    </a>
+                </li>
+            </ul>
+        </nav>
+    </aside>
+
+    <!-- CONTEÚDO -->
+    <main class="conteudo">
+        <header>
+            <h1>Sistema de Gestão</h1>
+            <p>Painel Geral do Sistema</p>
+        </header>
+
+        <!-- CARDS -->
+        <section class="dashboard">
+            <div class="cardDashboard card-azul">
+                <i class="fa-solid fa-file-circle-plus"></i>
+                <h3>Ordens Abertas</h3>
+                <span id="osAbertas">0</span>
+            </div>
+            <div class="cardDashboard card-verde">
+                <i class="fa-solid fa-circle-check"></i>
+                <h3>Ordens Concluídas</h3>
+                <span id="osConcluidas">0</span>
+            </div>
+            <div class="cardDashboard card-amarelo">
+                <i class="fa-solid fa-box"></i>
+                <h3>Itens Estoque</h3>
+                <span id="itensEstoque">0</span>
+            </div>
+            <div class="cardDashboard card-vermelho">
+                <i class="fa-solid fa-users"></i>
+                <h3>Usuários</h3>
+                <span id="usuarios">0</span>
+            </div>
+        </section>
+
+        <!-- AÇÕES RÁPIDAS -->
+        <section class="acoesRapidas">
+            <div class="cardAcao" onclick="window.location='atendimento.html'">
+                <i class="fa-solid fa-plus"></i>
+                <h4>Nova Ordem</h4>
+            </div>
+            <div class="cardAcao" onclick="window.location='consultar-os.html'">
+                <i class="fa-solid fa-magnifying-glass"></i>
+                <h4>Consultar O.S</h4>
+            </div>
+            <div class="cardAcao" onclick="window.location='estoque.html'">
+                <i class="fa-solid fa-boxes-stacked"></i>
+                <h4>Estoque</h4>
+            </div>
+            <div class="cardAcao" onclick="window.location='usuarios.html'">
+                <i class="fa-solid fa-users"></i>
+                <h4>Usuários</h4>
+            </div>
+        </section>
+
+        <!-- ÚLTIMAS ORDENS -->
+        <section class="painel">
+            <h2>
+                <i class="fa-solid fa-clock-rotate-left"></i>
+                Últimas Ordens de Serviço
+            </h2>
+            <table class="tabelaDashboard">
+                <thead>
+                    <tr>
+                        <th>O.S</th>
+                        <th>Data</th>
+                        <th>Solicitante</th>
+                        <th>Status</th>
+                        <th>Prioridade</th>
+                    </tr>
+                </thead>
+                <tbody id="ultimasOS">
+                    <tr>
+                        <td colspan="5" style="text-align: center; padding: 20px;">Carregando...</td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+    </main>
+
+</div>
+
+<script src="js/api.js"></script>
+<script src="js/app.js"></script>
+
+</body>
+</html>

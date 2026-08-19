@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Usuários</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/tabela.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+
+    <style>
+        /* Estilos do Modal */
+        .modal { display: none; position: fixed; z-index: 1000; left: 0; top: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,0.6); backdrop-filter: blur(3px); }
+        .modal-content { background-color: #fff; margin: 5% auto; padding: 25px; border-radius: 10px; width: 90%; max-width: 600px; box-shadow: 0 5px 20px rgba(0,0,0,0.2); font-family: 'Poppins', sans-serif;}
+        .close { color: #aaa; float: right; font-size: 28px; font-weight: bold; cursor: pointer; margin-top: -10px;}
+        .close:hover { color: #333; }
+    </style>
+
+</head>
+<body>
+<div class="layout">
+    <!-- MENU LATERAL -->
+    <aside class="sidebar">
+        <div class="logo">
+            <i class="fa-solid fa-screwdriver-wrench"></i>
+            <h2>Sistema Gestão</h2>
+        </div>
+        <nav>
+            <ul>
+                <li>
+                    <a href="index.html" class="ativo" id="menuHome">
+                        <i class="fa-solid fa-house"></i> Home
+                    </a>
+                </li>
+                <li>
+                    <a href="atendimento.html">
+                        <i class="fa-solid fa-file-circle-plus"></i> Atendimento
+                    </a>
+                </li>
+                <li>
+                    <a href="consultar-os.html">
+                        <i class="fa-solid fa-magnifying-glass"></i> Consultar O.S
+                    </a>
+                </li>
+                <li>
+                    <a href="estoque.html">
+                        <i class="fa-solid fa-boxes-stacked"></i> Estoque
+                    </a>
+                </li>
+                <li>
+                    <a href="usuarios.html">
+                        <i class="fa-solid fa-users"></i> Usuários
+                    </a>
+                </li>
+
+                <!-- BOTÃO DE SAIR (Vermelho) -->
+                <li style="margin-top: 30px; border-top: 1px solid rgba(255,255,255,0.1); padding-top: 10px;">
+                    <a href="#" onclick="sairDoSistema()" style="color: #ff6b81; font-weight: 500;">
+                        <i class="fa-solid fa-right-from-bracket"></i> Sair do Sistema
+                    </a>
+                </li>
+            </ul>
+        </nav>
+    </aside>
+
+    <!-- CONTEÚDO -->
+    <main class="conteudo">
+        <header>
+            <h1>Cadastro de Usuários</h1>
+            <p>Gerenciamento dos usuários do sistema.</p>
+        </header>
+
+        <!-- FORMULÁRIO -->
+        <section class="card">
+            <form id="formUsuario">
+                <div class="linha">
+                    <div class="grupo">
+                        <label>Nome Completo</label>
+                        <input type="text" id="nome">
+                    </div>
+                    <div class="grupo">
+                        <label>Login</label>
+                        <input type="text" id="login">
+                    </div>
+                </div>
+                <div class="linha">
+                    <div class="grupo">
+                        <label>Senha</label>
+                        <input type="password" id="senha">
+                    </div>
+                    <div class="grupo">
+                        <label>Perfil</label>
+                        <select id="perfil">
+                            <option>Administrador</option>
+                            <option>Técnico</option>
+                            <option>Operador</option>
+                            <option>Consulta</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="linha">
+                    <div class="grupo">
+                        <label>E-mail</label>
+                        <input type="email" id="email">
+                    </div>
+                    <div class="grupo">
+                        <label>Telefone</label>
+                        <input type="text" id="telefone">
+                    </div>
+                </div>
+                <div class="grupo">
+                    <label>Observações</label>
+                    <textarea id="observacao" rows="4"></textarea>
+                </div>
+                <div class="botoes">
+                    <button type="button" class="botao" id="btnSalvarUsuario">
+                        <i class="fa-solid fa-floppy-disk"></i> Salvar
+                    </button>
+                    <button type="reset" class="botao">
+                        <i class="fa-solid fa-eraser"></i> Limpar
+                    </button>
+                    <button type="button" class="botao" onclick="window.location='index.html'">
+                        <i class="fa-solid fa-arrow-left"></i> Voltar
+                    </button>
+                </div>
+            </form>
+        </section>
+
+        <!-- LISTA -->
+        <section class="card" style="margin-top:30px;">
+            <h2>Usuários Cadastrados</h2>
+            <div class="area-pesquisa">
+                <div class="grupo">
+                    <label>Pesquisar</label>
+                    <input type="text" id="pesquisaUsuario" placeholder="Nome ou Login">
+                </div>
+                <button class="botao" id="btnPesquisarUsuario">
+                    <i class="fa-solid fa-search"></i> Pesquisar
+                </button>
+            </div>
+            <div class="table-container">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Nome</th>
+                            <th>Login</th>
+                            <th>Perfil</th>
+                            <th>E-mail</th>
+                            <th>Status</th>
+                            <th>Ações</th>
+                        </tr>
+                    </thead>
+                    <tbody id="listaUsuarios">
+                        <!-- Os dados da nuvem vão aparecer aqui -->
+                    </tbody>
+                </table>
+            </div>
+        </section>
+    </main>
+</div>
+
+<!-- MODAL DE EDIÇÃO DE USUÁRIO -->
+<div id="modalUsuario" class="modal">
+    <div class="modal-content">
+        <span class="close" onclick="fecharModal()">&times;</span>
+        <h2 style="margin-bottom: 15px; color: #2b78e4;">Editar Usuário</h2>
+        
+        <form id="formEdicaoUsuario">
+            <!-- Guarda o login antigo para o Google saber quem editar -->
+            <input type="hidden" id="modalLoginOriginal">
+            
+            <div class="linha">
+                <div class="grupo">
+                    <label>Nome Completo</label>
+                    <input type="text" id="modalNome">
+                </div>
+                <div class="grupo">
+                    <label>Login</label>
+                    <input type="text" id="modalLogin">
+                </div>
+            </div>
+            
+            <div class="linha">
+                <div class="grupo">
+                    <label>Senha</label>
+                    <input type="password" id="modalSenha">
+                </div>
+                <div class="grupo">
+                    <label>Perfil</label>
+                    <select id="modalPerfil">
+                        <option>Administrador</option>
+                        <option>Técnico</option>
+                        <option>Operador</option>
+                        <option>Consulta</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="linha">
+                <div class="grupo">
+                    <label>E-mail</label>
+                    <input type="email" id="modalEmail">
+                </div>
+                <div class="grupo">
+                    <label>Telefone</label>
+                    <input type="text" id="modalTelefone">
+                </div>
+            </div>
+
+            <div class="botoes" style="margin-top: 20px; justify-content: flex-start; gap: 10px;">
+                <button type="button" class="botao" id="btnSalvarModal" onclick="salvarEdicaoUsuario()">
+                    <i class="fa-solid fa-floppy-disk"></i> Atualizar Usuário
+                </button>
+                <button type="button" class="botao" id="btnExcluirUsuario" style="background-color: #dc3545;" onclick="excluirUsuarioConfirmado()">
+                    <i class="fa-solid fa-trash"></i> Excluir Usuário
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<script src="js/api.js"></script>
+<script src="js/usuarios.js"></script>
+</body>
+</html>
